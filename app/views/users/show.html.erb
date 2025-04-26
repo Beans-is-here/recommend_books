@@ -1,0 +1,11 @@
+<p style="color: green"><%= notice %></p>
+<h1><%= @show_title %></h1>
+
+<%= render @user %>
+
+<div>
+  <%= link_to "編集", edit_user_path(@user) %> |
+  <%= link_to "一覧", users_path %>
+
+  <%= button_to "削除", @user, method: :delete %>
+</div>
