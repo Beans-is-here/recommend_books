@@ -1,0 +1,11 @@
+<p style="color: green"><%= notice %></p>
+<h1><%= @show_title %></h1>
+
+<%= render @book %>
+
+<div>
+  <%= link_to "編集", edit_book_path(@book) %> |
+  <%= link_to "一覧", books_path %>
+
+  <%= button_to "削除", @book, method: :delete %>
+  </div>
