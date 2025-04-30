@@ -25,6 +25,10 @@ class BooksController < ApplicationController
     end
 
     def update
+      @book.update(book_params)
+      if @book.save
+        redirect_to @book, notice: 'bookの編集が成功'
+      end
     end
 
     def destroy
