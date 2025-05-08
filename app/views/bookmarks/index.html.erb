@@ -1,0 +1,11 @@
+<h1>お気に入りの本</h1>
+<p>ブックマークの数: <%= @bookmarked_books.count %></p>
+<ul>
+  <% if @bookmarked_books.any? %>
+    <% @bookmarked_books.each do |book| %>
+      <li><%= book.title %></li>
+    <% end %>
+  <% else %>
+    <li>お気に入りの本はありません。</li>
+  <% end %>
+</ul>

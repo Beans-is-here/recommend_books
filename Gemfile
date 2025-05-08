@@ -66,3 +66,5 @@ end
 
 gem "byebug"
 gem 'pry-byebug'
+gem 'sorcery'
+gem 'ransack', '4.3.0'

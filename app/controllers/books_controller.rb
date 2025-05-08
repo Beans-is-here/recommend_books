@@ -2,7 +2,8 @@ class BooksController < ApplicationController
   before_action :set_book, only: [:show, :edit, :update, :destroy]
 
   def index
-    @books = Book.all
+    @q = Book.ransack(params[:q])  # Ransackの検索オブジェクトを初期化
+    @books = @q.result(distinct: true)  # 検索結果を取得
   end
 
   def show
@@ -13,7 +14,7 @@ class BooksController < ApplicationController
   end
 
   def create
-    @book = Book.new(book_params)
+    @book = current_user.books.build(book_params)
     if @book.save
       redirect_to @book, notice: 'bookの登録が成功'
     else
@@ -33,6 +34,11 @@ class BooksController < ApplicationController
 
     def destroy
     end
+ 
+    def ranking
+      @all_ranks = Book.create_all_ranks
+    end
+
 
     private
 
@@ -41,6 +47,7 @@ class BooksController < ApplicationController
     end
 
     def book_params
-      params.require(:book).permit(:title, :description)
-    end
+        params.require(:book).permit(:title, :description)
+      end
+
 end

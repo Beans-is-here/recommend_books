@@ -1,27 +1,33 @@
-<%= form_with(model: user) do |form| %>
-  <% if user.errors.any? %>
-    <div style="color: red">
-      <h2><%= pluralize(user.errors.count, "error") %> prohibited this user from being saved:</h2>
-
-      <ul>
-        <% user.errors.each do |error| %>
-          <li><%= error.full_message %></li>
-        <% end %>
-      </ul>
+<div class="container d-flex justify-content-center align-items-center" style="height: 80vh;">
+  <div class="card"  style="width: 400px;">
+    <div class="card-header">
+      サインアップ
     </div>
-  <% end %>
-
-  <div>
-    <%= form.label :name, 'ニックネーム', style: "display: block" %>
-    <%= form.text_field :name %>
+    <div class="card-body">
+      <%= form_with model: @sign_up_form, url: sign_up_path do |f| %>
+        <%= render 'shared/error_message', object: f.object %>
+        <div class="mb-3">
+          <%= f.label :name %>
+          <%= f.text_field :name, class: 'form-control' %>
+        </div>
+        <div class="mb-3">
+          <%= f.label :email %>
+          <%= f.email_field :email, class: 'form-control' %>
+        </div>
+        <div class="mb-3">
+          <%= f.label :password %>
+          <%= f.password_field :password, class: 'form-control' %>
+        </div>
+        <div class="mb-3">
+          <%= f.label :password_confirmation %>
+          <%= f.password_field :password_confirmation, class: 'form-control' %>
+        </div>
+        <div>
+          <%= f.submit 'サインアップ', class: 'btn btn-primary' %>
+        </div>
+      <% end %>
+    </div>
   </div>
+</div>
 
-  <div>
-    <%= form.label :email, 'Email', style: "display: block" %>
-    <%= form.text_field :email %>
-  </div>
 
-  <div>
-    <%= form.submit '登録' %>
-  </div>
-<% end %>

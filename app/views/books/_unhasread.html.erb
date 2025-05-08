@@ -1,0 +1,3 @@
+<%= link_to hasread_path(current_user.hasreads.find_by(book_id: book.id)), id: "unhasread-button-for-book-#{book.id}", data: { turbo_method: :delete } do %>
+  <i class="bi bi-check-square-fill"></i> 読んだ
+<% end %>

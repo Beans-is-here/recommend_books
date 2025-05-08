@@ -1,0 +1,3 @@
+<%= turbo_stream.replace "unhasread-button-for-book-#{@book.id}" do %>
+  <%= render 'books/hasread', book: @book %>
+<% end %>

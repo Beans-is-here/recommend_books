@@ -1,0 +1,6 @@
+<%= search_form_for @q, url: books_path, method: :get do |f| %>
+  <div>
+    <%= f.text_field :title_cont, id: 'search_field_of_book', placeholder: "投稿" %>
+  </div>
+  <%= f.submit "Search" %>
+<% end %>

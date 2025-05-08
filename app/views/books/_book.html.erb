@@ -1,11 +1,26 @@
-<div id="<%= dom_id book %>">
-  <p>
-    <strong>タイトル:</strong>
-    <%= book.title %>
-  </p>
-
-  <p>
-    <strong>内容:</strong>
-    <%= book.description %>
-  </p>
+<div class="col-sm-12 col-lg-4 mb-3">
+  <div id="book-id-<%= book.id %>">
+    <div class="card">
+      <div class="card-body">
+        <div class="d-flex">
+          <h4 class="card-title">
+            <%= link_to book.title, book_path(book) %>
+          </h4>
+          <% if current_user && current_user.own?(book) %>
+            <div class='ms-auto'>
+              <%= link_to edit_book_path(book), id: "button-edit-#{book.id}" do %>
+                <i class="bi bi-pencil-fill"></i>
+              <% end %>
+              <% link_to book_path(book), id: "button-delete-#{book.id}", data: { turbo_method: :delete, turbo_confirm: t('defaults.delete_confirm') } do %>
+                <i class="bi bi-trash-fill"></i>
+              <% end %>
+            </div>
+          <% else %>
+            <%= render 'bookmark_buttons', { book: book } %>
+            <%= render 'hasread_buttons', { book: book } %>
+          <% end %>
+        </div>
+      </div>
+    </div>
+  </div>
 </div>

@@ -1,0 +1,18 @@
+<h1>参考書選びの基準になるかも！</h1>
+<% current_rank = 0 %>
+<% previous_count = nil %>
+<table>
+  <% @all_ranks.each.with_index(1) do |book| %>
+    <% if previous_count != book.hasreads.count %>
+    <% current_rank += 1 %>
+    <% previous_count = book.hasreads.count %>
+    <% end %>
+    <tr>
+      <td>第<%= current_rank %>位</td>
+      <td><%= link_to book.title, book_path(book) %></td>
+      <td><%= book.hasreads.count %>人に読まれてる</td>
+    </tr>
+  <% end %>
+  </table>
+
+  
