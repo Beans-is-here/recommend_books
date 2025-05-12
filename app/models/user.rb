@@ -6,6 +6,9 @@ class User < ApplicationRecord
   has_many :hasreads, dependent: :destroy
   has_many :hasread_books, through: :hasreads, source: :book
 
+  validates :email, uniqueness: true, presence: true
+  validates :name, presence: true
+  validates :password, presence: true, length: { minimum: 4 }, confirmation: true
 
   def own?(object)
     id == object&.user_id

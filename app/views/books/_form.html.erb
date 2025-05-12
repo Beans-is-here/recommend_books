@@ -18,12 +18,13 @@
 
   <div>
     <%= form.label :description, '内容', style: "display: block" %>
-    <%= form.text_area :description %>
+    <%= form.text_field :description %>
   </div>
 
   <div>
-    <%= form.label :category, 'カテゴリ', style: "display: block" %>
-    <%= form.text_field :category %>
+    <%= form.label :tag_name, 'タグ', style: "display: block" %>
+    <%= form.text_field :tag_name, name: 'tag[tag_name]', value: @input_tags %>
+  </div>
 
   <div>
     <%= form.submit '登録' %>

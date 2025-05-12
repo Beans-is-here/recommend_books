@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[8.0].define(version: 2025_05_07_005029) do
+ActiveRecord::Schema[8.0].define(version: 2025_05_08_120851) do
   create_table "bookmarks", charset: "utf8mb4", collation: "utf8mb4_0900_ai_ci", force: :cascade do |t|
     t.bigint "user_id"
     t.bigint "book_id"
@@ -39,6 +39,21 @@ ActiveRecord::Schema[8.0].define(version: 2025_05_07_005029) do
     t.index ["user_id"], name: "index_hasreads_on_user_id"
   end
 
+  create_table "tag_maps", charset: "utf8mb4", collation: "utf8mb4_0900_ai_ci", force: :cascade do |t|
+    t.bigint "book_id", null: false
+    t.bigint "tag_id", null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["book_id"], name: "index_tag_maps_on_book_id"
+    t.index ["tag_id"], name: "index_tag_maps_on_tag_id"
+  end
+
+  create_table "tags", charset: "utf8mb4", collation: "utf8mb4_0900_ai_ci", force: :cascade do |t|
+    t.string "tag_name"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
   create_table "users", charset: "utf8mb4", collation: "utf8mb4_0900_ai_ci", force: :cascade do |t|
     t.datetime "created_at", default: "2025-04-26 04:42:05", null: false
     t.datetime "updated_at", default: "2025-04-26 04:42:05", null: false
@@ -51,4 +66,6 @@ ActiveRecord::Schema[8.0].define(version: 2025_05_07_005029) do
   add_foreign_key "bookmarks", "users"
   add_foreign_key "hasreads", "books"
   add_foreign_key "hasreads", "users"
+  add_foreign_key "tag_maps", "books"
+  add_foreign_key "tag_maps", "tags"
 end

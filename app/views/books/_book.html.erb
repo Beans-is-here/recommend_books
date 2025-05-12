@@ -2,10 +2,16 @@
   <div id="book-id-<%= book.id %>">
     <div class="card">
       <div class="card-body">
-        <div class="d-flex">
-          <h4 class="card-title">
+        <h4 class="card-title">
             <%= link_to book.title, book_path(book) %>
           </h4>
+          <%= book.description %>
+
+        <div class="d-flex">
+          <div class="tag">
+            <%= book.tags.map { |tag| link_to(tag.tag_name, books_path(tag_map: { tag_id: tag.id })) }.join(", ").html_safe %>
+          </div>
+          
           <% if current_user && current_user.own?(book) %>
             <div class='ms-auto'>
               <%= link_to edit_book_path(book), id: "button-edit-#{book.id}" do %>

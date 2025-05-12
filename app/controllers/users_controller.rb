@@ -40,13 +40,15 @@ class UsersController < ApplicationController
   end
 
   def edit
+    @user = User.find(params[:id])
   end
 
   def update
+    @user = User.find(params[:id])
     respond_to do |format|
-      if @sign_up_form.update(user_params)
+      if @user.update(edit_params)
         format.html { redirect_to user_path, notice: "ユーザーが更新されました" }
-        format.json { render :show, status: :ok, location: @sign_up_form }
+        format.json { render :show, status: :ok, location: @user }
       else
         format.html { render :edit, status: :unprocessable_entity }
         format.json { render json: @sign_up_form.errors, status: :unprocessable_entity }
@@ -67,6 +69,10 @@ class UsersController < ApplicationController
 
   def sign_up_form_params
     params.require(:sign_up_form).permit(:name, :email, :password, :password_confirmation)
+  end
+
+  def edit_params
+    params.require(:user).permit(:name, :email)
   end
 
   def set_user
