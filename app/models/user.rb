@@ -1,4 +1,5 @@
 class User < ApplicationRecord
+  authenticates_with_sorcery!
   has_secure_password
   has_many :books, dependent: :destroy
   has_many :bookmarks, dependent: :destroy
@@ -9,6 +10,7 @@ class User < ApplicationRecord
   validates :email, uniqueness: true, presence: true
   validates :name, presence: true
   validates :password, presence: true, length: { minimum: 4 }, confirmation: true
+  validates :reset_password_token, uniqueness: true, allow_nil: true
 
   def own?(object)
     id == object&.user_id

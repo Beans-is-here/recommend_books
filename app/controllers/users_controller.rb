@@ -1,3 +1,6 @@
+require 'net/http'
+require 'uri'
+
 class UsersController < ApplicationController
   before_action :set_user, only: %i[ destroy ]
 
@@ -18,24 +21,23 @@ class UsersController < ApplicationController
   end
 
   def create
-    @sign_up_form = SignUpForm.new(sign_up_form_params)
+    github_username = params[:sign_up_form][:name] 
+    puts "取得したGitHubユーザー名: #{github_username}" # デバッグ用
+    if valid_github_user?(github_username)
+
+      @sign_up_form = SignUpForm.new(sign_up_form_params)
     puts "Attempting to save sign up form with: #{sign_up_form_params.inspect}"
     
-    if @sign_up_form.save
-      session[:user_id] = @sign_up_form.user.id
-      redirect_to @sign_up_form.user, success: 'サインアップに成功'
-    else
-      Rails.logger.info @sign_up_form.errors.full_messages 
-      respond_to do |format|
-        format.turbo_stream do
-          render turbo_stream: turbo_stream.replace("form_container", partial: "users/form", locals: { sign_up_form: @sign_up_form })
-          puts "render_false"
-        end
-        format.html do
-          flash.now[:danger] = 'サインアップに失敗'
-          render :new
-        end
+      if @sign_up_form.save
+        session[:user_id] = @sign_up_form.user.id
+        redirect_to @sign_up_form.user, success: 'サインアップに成功'
+      else
+        @sign_up_form.errors.full_messages 
       end
+
+    else
+      flash.now[:alert] = 'GitHubユーザーではありません。'
+      redirect_to new_user_path
     end
   end
 
@@ -79,4 +81,10 @@ class UsersController < ApplicationController
     @user = User.find(params[:id])
   end
 
+  def valid_github_user?(name)
+    puts "CALL valid"
+    uri = URI.parse("https://github.com/#{name}")
+    response = Net::HTTP.get_response(uri)
+    response.code == "200" # ステータスコードが200ならtrueを返す
+  end
 end

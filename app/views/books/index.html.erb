@@ -3,6 +3,7 @@
   <div class="row">
     <div class="col-lg-10 offset-lg-1">
       <%= render 'search_form', q: @q, url: books_path %>
+      <%= link_to "新規作成", new_book_path %>
     </div>
   </div>
 
@@ -11,5 +12,3 @@
 <div id="books">
     <%= render @books %>
 </div>
-
-<%= link_to "新規作成", new_book_path %>
