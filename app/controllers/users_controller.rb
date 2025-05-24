@@ -5,7 +5,7 @@ class UsersController < ApplicationController
   before_action :set_user, only: %i[ destroy ]
 
   def index
-    @users = User.all
+    @users = User.all.page(params[:page])
   end
 
   def show

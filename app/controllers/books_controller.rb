@@ -5,11 +5,11 @@ class BooksController < ApplicationController
 
     if params[:tag_map] && [:tag_id]
       puts "before search"
-      @books = @q.result.joins(:tag_maps).where(tag_maps: { tag_id: params[:tag_map][:tag_id] })
+      @books = @q.result.joins(:tag_maps).where(tag_maps: { tag_id: params[:tag_map][:tag_id] }).page(params[:page])
       puts "after search"
     else
       puts "test if"
-    @books = @q.result.includes(:tags).order(created_at: :desc).distinct # 検索結果を取得
+    @books = @q.result.includes(:tags).order(created_at: :desc).distinct.page(params[:page]) # 検索結果を取得
   end
 end
 
