@@ -36,7 +36,7 @@ class UsersController < ApplicationController
       end
 
     else
-      flash.now[:alert] = 'GitHubユーザーではありません。'
+      flash.now[:danger] = 'GitHubユーザーではありません。'
       redirect_to new_user_path
     end
   end

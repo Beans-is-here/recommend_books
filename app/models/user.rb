@@ -1,6 +1,5 @@
 class User < ApplicationRecord
   authenticates_with_sorcery!
-  has_secure_password
   has_many :books, dependent: :destroy
   has_many :bookmarks, dependent: :destroy
   has_many :bookmark_books, through: :bookmarks, source: :book

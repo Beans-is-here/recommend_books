@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[8.0].define(version: 2025_05_23_022331) do
+ActiveRecord::Schema[8.0].define(version: 2025_05_28_012636) do
   create_table "bookmarks", charset: "utf8mb4", collation: "utf8mb4_0900_ai_ci", force: :cascade do |t|
     t.bigint "user_id"
     t.bigint "book_id"
@@ -55,16 +55,17 @@ ActiveRecord::Schema[8.0].define(version: 2025_05_23_022331) do
   end
 
   create_table "users", charset: "utf8mb4", collation: "utf8mb4_0900_ai_ci", force: :cascade do |t|
-    t.datetime "created_at", default: "2025-04-26 04:42:05", null: false
-    t.datetime "updated_at", default: "2025-04-26 04:42:05", null: false
+    t.datetime "created_at", default: "2025-04-26 00:18:04", null: false
+    t.datetime "updated_at", default: "2025-04-26 00:30:55", null: false
     t.string "name", null: false
     t.string "email", null: false
-    t.string "password_digest"
+    t.string "crypted_password"
     t.string "salt"
     t.string "reset_password_token"
     t.datetime "reset_password_token_expires_at"
     t.datetime "reset_password_email_sent_at"
     t.integer "access_count_to_reset_password_page", default: 0
+    t.index ["email"], name: "index_users_on_email", unique: true
     t.index ["reset_password_token"], name: "index_users_on_reset_password_token", unique: true
   end
 
