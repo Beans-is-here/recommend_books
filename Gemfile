@@ -73,3 +73,7 @@ gem 'net-http'
 gem 'kaminari'
 gem 'bootstrap5-kaminari-views'
 gem 'rails-i18n'
+
+group :production do
+  gem 'pg'
+end
