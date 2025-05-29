@@ -251,7 +251,6 @@ GEM
     parser (3.3.8.0)
       ast (~> 2.4.1)
       racc
-    pg (1.5.9)
     pp (0.6.2)
       prettyprint
     prettyprint (0.2.0)
@@ -358,7 +357,7 @@ GEM
     ruby-progressbar (1.13.0)
     rubyzip (2.4.1)
     securerandom (0.4.1)
-    selenium-webdriver (4.32.0)
+    selenium-webdriver (4.33.0)
       base64 (~> 0.2)
       logger (~> 1.4)
       rexml (~> 3.2, >= 3.2.5)
@@ -455,7 +454,6 @@ DEPENDENCIES
   letter_opener_web
   mysql2 (~> 0.5)
   net-http
-  pg
   propshaft
   pry-byebug
   puma (>= 5.0)
