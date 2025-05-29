@@ -51,19 +51,19 @@ group :development, :test do
 
   # Omakase Ruby styling [https://github.com/rails/rubocop-rails-omakase/]
   gem "rubocop-rails-omakase", require: false
-#end
+end
 
-#group :development do
+group :development do
   # Use console on exceptions pages [https://github.com/rails/web-console]
   gem "web-console"
   gem 'letter_opener_web'
-#end
+end
 
-#group :test do
+group :test do
   # Use system testing [https://guides.rubyonrails.org/testing.html#system-testing]
   gem "capybara"
   gem "selenium-webdriver"
-#end
+end
 
 gem "byebug"
 gem 'pry-byebug'
@@ -73,8 +73,3 @@ gem 'net-http'
 gem 'kaminari'
 gem 'bootstrap5-kaminari-views'
 gem 'rails-i18n'
-end
-
-group :production do
-  gem 'pg'
-end
