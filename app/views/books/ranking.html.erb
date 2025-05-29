@@ -1,18 +1,24 @@
-<h1>参考書選びの基準になるかも！</h1>
+<h1>参考書選びの基準としてご利用ください</h1>
+
+<p>当該ページは、エンジニアを目指す過程でみなさんが利用されている参考書をランキングにしてみました。<br>
+ランキングへの参加、読んでみたいリストへの追加はユーザー作成ならびにログインが必要となります。</p>
 <% current_rank = 0 %>
 <% previous_count = nil %>
-<table>
-  <% @all_ranks.each.with_index(1) do |book| %>
-    <% if previous_count != book.hasreads.count %>
-    <% current_rank += 1 %>
-    <% previous_count = book.hasreads.count %>
-    <% end %>
-    <tr>
-      <td>第<%= current_rank %>位</td>
-      <td><%= link_to book.title, book_path(book) %></td>
-      <td><%= book.hasreads.count %>人に読まれてる</td>
-    </tr>
-  <% end %>
-  </table>
 
+<div class = "table-container">
+  <table class = "table">
+    <% @all_ranks.each.with_index(1) do |book| %>
+    <% if previous_count != book.hasreads.count %>
+      <% current_rank += 1 %>
+      <% previous_count = book.hasreads.count %>
+    <% end %>
+    
+      <tr>
+        <td>第<%= current_rank %>位</td>
+        <td><%= link_to book.title, book_path(book) %></td>
+        <td><%= book.hasreads.count %>人に読まれてる</td>
+      </tr>
+    <% end %>
+  </table>
+</div>
   

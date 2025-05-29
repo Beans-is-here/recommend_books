@@ -1,11 +1,6 @@
-<% flash.each do |message_type, message| %>
-  <div class="alert alert-<%= message_type %>">
-    <%= message %>
-  </div>
-<% end %>
 <div id="<%= dom_id user %>">
   <p>
-    <strong>ニックネーム:</strong>
+    <strong>Name:</strong>
     <%= user.name %>
   </p>
 

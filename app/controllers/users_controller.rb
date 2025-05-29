@@ -33,6 +33,8 @@ class UsersController < ApplicationController
         redirect_to @sign_up_form.user, success: 'サインアップに成功'
       else
         @sign_up_form.errors.full_messages 
+        flash.now[:danger] = 'ユーザー登録に失敗しました'
+        render :new, status: :unprocessable_entity
       end
 
     else
