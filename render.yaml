@@ -1,7 +1,7 @@
 databases:
-  - name: myapp_production
-    databaseName: myapp_production
-    user: postgres
+  - name: booksdata_txej
+    databaseName: booksdata_txej
+    user: booksdata_txej_user
     region: singapore
 
 services:
