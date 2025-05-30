@@ -53,6 +53,6 @@ production:
   adapter: postgresql
   encoding: unicode
   database: myapp_production
-  username: postgres
-  password: password
+  username: <%= ENV['DATABASE_USERNAME'] %>
+  password: <%= ENV['DATABASE_PASSWORD'] %>
   host: <%= ENV['DATABASE_HOST'] %>
