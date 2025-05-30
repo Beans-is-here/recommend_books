@@ -85,4 +85,4 @@ ENTRYPOINT ["/rails/bin/docker-entrypoint"]
 EXPOSE 80
 CMD ["./bin/thrust", "./bin/rails", "server"]
 
-RUN apt-get update && apt-get install -y libpq-dev
+RUN apt-get update && apt-get install -y libpq-dev build-essential
