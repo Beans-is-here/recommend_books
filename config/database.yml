@@ -55,4 +55,4 @@ production:
   database: myapp_production
   username: postgres
   password: password
-  host: db1
+  host: <%= ENV['DATABASE_HOST'] %>
