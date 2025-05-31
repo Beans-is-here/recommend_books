@@ -50,6 +50,7 @@ test:
 #
 production:
   <<: *default
+  database: myapp_cable_production
   adapter: postgresql
   encoding: unicode
   url: <%= ENV['DATABASE_URL'] %>
