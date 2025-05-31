@@ -1,44 +1,45 @@
-services: # コンテナの定義開始
-  db: # Mysqlデータベースの設定
-    image: mysql:8.0 # Mysqlの公式イメージを使用
-    environment: # 環境変数の設定
-      TZ: Asia/Tokyo # タイムゾーンを日本
-      MYSQL_ROOT_PASSWORD: password # データベースのパスワード設定
-    volumes: # データの永続化設定
-      - mysql_data:/var/lib/mysql #DBデータを永続化
-    ports: # ポート設定
-      - 3307:3306
-    healthcheck: #コンテナの健康チェック設定
-      test: mysqladmin ping -h 127.0.0.1 -uroot -ppassword
-      interval: 10s # チェック間隔
-      timeout: 10s # タイムアウト時間
-      retries: 3 # リトライ回数
-      start_period: 30s
-  web: # Railsアプリケーションの設定
-    build: # Dockerイメージのビルド設定
-      context: . # ビルドコンテキストはカレントディレクトリ
-      dockerfile: Dockerfile.dev # 開発用Dockerfileを使用
-    command: bash -c "bundle install && bundle exec rails db:prepare && rm -f tmp/pids/server.pid && ./bin/dev"
-    # ↑ サーバー起動時のコマンド：
-    # - bundle install: 必要なgemをインストール
-    # - rails db:prepare: DBの準備
-    # - サーバープロセスIDファイルの削除
-    # - 開発サーバーの起動
+services:
+  db:
+    image: ${DB_TYPE:-mysql:8.0}  # 環境変数DB_TYPEでデフォルトはMySQL
+    environment:
+      TZ: Asia/Tokyo
+      MYSQL_ROOT_PASSWORD: ${MYSQL_ROOT_PASSWORD:-password}  # MySQL用のパスワード
+      POSTGRES_PASSWORD: ${POSTGRES_PASSWORD:-password}  # PostgreSQL用のパスワード
+    volumes:
+      - ${DB_TYPE:-mysql_data}:/var/lib/mysql  # MySQLのデータボリューム
+      - ${DB_TYPE:-postgresql_data}:/var/lib/postgresql  # PostgreSQLのデータボリューム
+    ports:
+      - ${DB_PORT:-3307}:3306  # MySQL用のポート
+      - ${DB_PORT:-5432}:5432  # PostgreSQL用のポート
+    healthcheck:
+      test: >
+        ${DB_TYPE:-mysql} == "mysql" && mysqladmin ping -h 127.0.0.1 -uroot -ppassword ||
+        ${DB_TYPE:-postgres} == "postgres" && pg_isready -d myapp_development -U postgres
+      interval: 10s
+      timeout: 5s
+      retries: 5
 
-    tty: true # 擬似ターミナルを割り当て
-    stdin_open: true # 標準入力を保持
-    volumes: # ボリュームマウントの設定
-      - .:/myapp # ソースコードのマウント
-      - bundle_data:/usr/local/bundle:cached #gemの永続化
-      - node_modules:/myapp/node_modules # node_modulesの永続化
-    environment: # 環境変数の設定
-      TZ: Asia/Tokyo #タイムゾーンを日本に設定
-    ports: # ポート設定
-      - "3000:3000" # Rails標準のポート
-    depends_on: # 依存関係の設定
-      db: # dbサービスに依存
-        condition: service_healthy # dbの健康チェックが通るまで待機
-volumes: # ボリュームの定義
-  mysql_data: # gemデータの永続化用ボリューム
-  bundle_data: # Mysqlデータの永続化用ボリューム
-  node_modules: # Node.jsパッケージの永続化用ボリューム
+  web:
+    build:
+      context: . 
+      dockerfile: Dockerfile.dev
+    command: bash -c "bundle install && bundle exec rails db:prepare && rm -f tmp/pids/server.pid && ./bin/dev"
+    tty: true
+    stdin_open: true
+    volumes:
+      - .:/myapp
+      - bundle_data:/usr/local/bundle:cached
+      - node_modules:/myapp/node_modules
+    environment:
+      TZ: Asia/Tokyo
+    ports:
+      - "3000:3000"
+    depends_on:
+      db:
+        condition: service_healthy
+
+volumes:
+  mysql_data:
+  postgresql_data:
+  bundle_data:
+  node_modules:
