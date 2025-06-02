@@ -50,9 +50,10 @@ test:
 #
 production:
   <<: *default
-  database: myapp_cable_production
+  database: myapp_production
   adapter: postgresql
   encoding: unicode
   url: <%= ENV['DATABASE_URL'] %>
-  cable: myapp_cable_production
-  queue: myapp_queue_production
+  cable:
+    adapter: redis
+    url: <%= ENV['REDIS_URL'] %>
