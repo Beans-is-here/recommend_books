@@ -55,5 +55,9 @@ production:
   encoding: unicode
   url: <%= ENV['DATABASE_URL'] %>
   cable:
-    adapter: redis
-    url: <%= ENV['REDIS_URL'] %>
+    adapter: postgresql
+    database: myapp_cable_production
+    encoding: unicode
+    username: root
+    password: password
+    host: db
