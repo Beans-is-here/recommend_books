@@ -59,3 +59,7 @@ production: &production
 queue:
   <<: *production
   database: myapp_queue_production
+
+cache:
+  <<: *production
+  database: myapp_production  
