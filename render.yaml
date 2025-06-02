@@ -17,5 +17,9 @@ services:
         fromDatabase:
           name: booksdata
           property: connectionString
+      - key: CABLE_DATABASE_URL
+    fromDatabase:
+      name: cabledata  # 新しいデータベース名を指定
+      property: connectionString
       - key: RAILS_MASTER_KEY
         sync: false
