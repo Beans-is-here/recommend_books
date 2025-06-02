@@ -55,8 +55,3 @@ production:
   database: myapp_production
   username: myapp
   password: <%= ENV["MYAPP_DATABASE_PASSWORD"] %>
-
-
-bundle install; bundle exec rake db:create; bundle exec rake assets:precompile; bundle exec rake assets:clean; bin/rails db:migrate;
-bundle install; bundle exec rake db:create; bundle exec rake assets:precompile; bundle exec rake assets:clean; bin/rails db:migrate;
-bundle exec puma -t 5:5 -p ${PORT:-3000} -e ${RACK_ENV:-development}
