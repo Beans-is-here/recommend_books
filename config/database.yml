@@ -48,13 +48,14 @@ test:
 # Read https://guides.rubyonrails.org/configuring.html#configuring-a-database
 # for a full overview on how database connection configuration can be specified.
 #
-production:
-  <<: *default
+production: &production
   adapter: postgresql
   encoding: unicode
   database: myapp_production
   username: myapp
   password: <%= ENV["MYAPP_DATABASE_PASSWORD"] %>
+  host: db
 
-  queue:
+queue:
   <<: *production
+  database: myapp_queue_production
