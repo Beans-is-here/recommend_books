@@ -54,3 +54,8 @@ production:
   encoding: unicode
   database: myapp_production
   url: <%= ENV['DATABASE_URL'] %>
+  cable:
+    adapter: postgresql
+    encoding: unicode
+    database: cable_production
+    url: <%= ENV['CABLE_DATABASE_URL'] %>
